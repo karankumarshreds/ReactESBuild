@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { transpile } from 'typescript';
 
-const CodeBlock: React.FC<{ transpile: () => any }> = ({ transpile }) => {
+const CodeBlock: React.FC<{ transpile: (code: string) => void }> = ({ transpile }) => {
   const [input, setInput] = useState('');
   // code is returned transpiled code from esbuild
   const [code, setCode] = useState('');
 
   const onClick = () => {
-    transpile();
+    transpile(input);
   };
 
   return (

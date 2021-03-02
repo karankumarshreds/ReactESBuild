@@ -20,11 +20,15 @@ const App = () => {
     startService();
   }, []);
 
-  const transpile = () => {
+  const transpile = async (code: string) => {
     if (!ref.current) {
       return;
     } else {
-      console.log(ref.current);
+      const result = await ref.current.transform(code, {
+        loader: 'jsx', // type of code we are providing
+        target: 'es2015', //
+      });
+      console.log(result);
     }
   };
 
