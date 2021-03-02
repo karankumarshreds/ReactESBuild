@@ -3,10 +3,11 @@ import CodeBlock from './components/Codeblock';
 
 // es build config
 import * as esbuild from 'esbuild-wasm';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const App = () => {
   const ref = useRef<any>();
+  const [transpiledCode, setTranspiledCode] = useState('');
   const startService = async () => {
     // initialize esbuild in browser
     // returns objects of funtions used to transpile code and bundle the code
@@ -28,11 +29,11 @@ const App = () => {
         loader: 'jsx', // type of code we are providing
         target: 'es2015', //
       });
-      console.log(result);
+      setTranspiledCode(result.code);
     }
   };
 
-  return <CodeBlock transpile={transpile} />;
+  return <CodeBlock transpile={transpile} transpiledCode={transpiledCode} />;
 };
 
 ReactDOM.render(<App />, document.querySelector('#root'));

@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { transpile } from 'typescript';
 
-const CodeBlock: React.FC<{ transpile: (code: string) => void }> = ({ transpile }) => {
+const CodeBlock: React.FC<{ transpile: (code: string) => void; transpiledCode: string }> = ({
+  transpile,
+  transpiledCode,
+}) => {
+  console.log(transpiledCode, 'HAHAAHAHAH');
   const [input, setInput] = useState('');
   // code is returned transpiled code from esbuild
   const [code, setCode] = useState('');
@@ -16,7 +20,7 @@ const CodeBlock: React.FC<{ transpile: (code: string) => void }> = ({ transpile 
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
-      <pre></pre>
+      <pre>{transpiledCode}</pre>
     </div>
   );
 };
