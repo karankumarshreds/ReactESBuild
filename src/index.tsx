@@ -4,6 +4,7 @@ import CodeBlock from './components/Codeblock';
 // es build config
 import * as esbuild from 'esbuild-wasm';
 import { useEffect, useRef, useState } from 'react';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 
 const App = () => {
   const ref = useRef<any>();
@@ -24,13 +25,21 @@ const App = () => {
   const transpile = async (code: string) => {
     if (!ref.current) {
       return;
-    } else {
-      const result = await ref.current.transform(code, {
-        loader: 'jsx', // type of code we are providing
-        target: 'es2015', //
-      });
-      setTranspiledCode(result.code);
     }
+    // else {
+    //   const result = await ref.current.transform(code, {
+    //     loader: 'jsx', // type of code we are providing
+    //     target: 'es2015', // to support modern es15 syntax like {...} and async etc
+    //   });
+    //   setTranspiledCode(result.code);
+    // }
+    const result = await ref.current.build({
+      entryPoints: ['index.js'], // the main file to look for while bundling
+      bundle: true,
+      write: false,
+      plugins: [unpkgPathPlugin()],
+    });
+    console.log(result);
   };
 
   return <CodeBlock transpile={transpile} transpiledCode={transpiledCode} />;

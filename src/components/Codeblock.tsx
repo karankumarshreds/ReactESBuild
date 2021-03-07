@@ -5,11 +5,9 @@ const CodeBlock: React.FC<{ transpile: (code: string) => void; transpiledCode: s
   transpile,
   transpiledCode,
 }) => {
-  console.log(transpiledCode, 'HAHAAHAHAH');
   const [input, setInput] = useState('');
   // code is returned transpiled code from esbuild
   const [code, setCode] = useState('');
-
   const onClick = () => {
     transpile(input);
   };
