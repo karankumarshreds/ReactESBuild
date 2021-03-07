@@ -18,6 +18,20 @@ export const unpkgPathPlugin = () => {
        * searching and the loading process from the
        * local file system as its default behaviour
        * which we do not want
+       * **********************************************
+       * @filter
+       * Filter defines the regex to look for a specific
+       * type of file name. This is because we can have
+       * multiple onResolve methods based on  different
+       * types of files we are dealing with
+       * **********************************************
+       * @namespace
+       * This is somewhat similar to the filer property
+       * Whichever file is tried to be searched using a
+       * onResolve method can be assigned to a namespace
+       * Which can be further used with the onLoad method
+       * to target all the files searched by the onResolve
+       * using its filter regex
        */
       build.onResolve({ filter: /.*/ }, async (args: any) => {
         console.log('onResolve', args);
