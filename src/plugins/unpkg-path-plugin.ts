@@ -12,6 +12,12 @@ export const unpkgPathPlugin = () => {
        * We have overridden and modified this method to
        * hijack the default behaviour of finding the
        * main file
+       * **********************************************
+       * We are overriding these methods because if we
+       * don't, then ESBuild will try to start the
+       * searching and the loading process from the
+       * local file system as its default behaviour
+       * which we do not want
        */
       build.onResolve({ filter: /.*/ }, async (args: any) => {
         console.log('onResolve', args);
